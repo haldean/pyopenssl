@@ -1489,7 +1489,9 @@ class Connection(object):
         """
         result = _lib.SSL_shutdown(self._ssl)
         if result < 0:
-            self._raise_ssl_error(self._ssl, result)
+            print "WARNING: shutdown failed: code %s, %s" % (
+                result, errorcode.get(result))
+            return False
         elif result > 0:
             return True
         else:
